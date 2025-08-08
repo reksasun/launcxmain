@@ -6,6 +6,7 @@ export type Tx = {
   amount: number
   feeLauncx: number
   feePg: number
+  totalFee: number
   netSettle: number
   status: '' | 'SUCCESS' | 'PENDING' | 'EXPIRED' | 'DONE' | 'PAID'
   settlementStatus: string

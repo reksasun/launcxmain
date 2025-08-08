@@ -119,6 +119,7 @@ export default function TransactionsTable({
                   <th>Amount</th>
                   <th>Fee Launcx</th>
                   <th>Fee PG</th>
+                  <th>Total Fee</th>
                   <th>Net Amount</th>
                   <th>Status</th>
                   <th>Settlement Status</th>
@@ -157,6 +158,7 @@ export default function TransactionsTable({
                     <td>{t.amount.toLocaleString('id-ID', { style:'currency', currency:'IDR' })}</td>
                     <td>{t.feeLauncx.toLocaleString('id-ID', { style:'currency', currency:'IDR' })}</td>
                     <td>{t.feePg.toLocaleString('id-ID', { style:'currency', currency:'IDR' })}</td>
+                    <td>{t.totalFee.toLocaleString('id-ID', { style:'currency', currency:'IDR' })}</td>
                     <td className={styles.netSettle}>{t.netSettle.toLocaleString('id-ID', { style:'currency', currency:'IDR' })}</td>
                     <td>{t.status || '-'}</td>
                     <td>
