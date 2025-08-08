@@ -35,6 +35,7 @@ type RawTx = {
   amount?: number
   feeLauncx?: number
   feePg?: number
+  totalFee?: number
   pendingAmount?: number
   settlementAmount?: number
   status?: string
@@ -480,6 +481,7 @@ const mapped: Tx[] = data.transactions.map(o => {
     amount:             o.amount ?? 0,
     feeLauncx:          o.feeLauncx ?? 0,
     feePg:              o.feePg ?? 0,
+    totalFee:           o.totalFee ?? 0,
     netSettle:          o.netSettle,
     status:             statusTyped,                                // <<< revisi
     settlementStatus:   o.settlementStatus.replace(/_/g, ' '),

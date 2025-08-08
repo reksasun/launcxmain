@@ -466,6 +466,7 @@ export async function getDashboardTransactions(req: Request, res: Response) {
       const pend = o.pendingAmount    ?? 0
       const sett = o.settlementAmount ?? 0
       const netSettle = o.status === 'PAID' ? pend : sett
+      const totalFee = (o.feeLauncx ?? 0) + (o.fee3rdParty ?? 0)
 
       return {
         id:                   o.id,
@@ -476,6 +477,7 @@ export async function getDashboardTransactions(req: Request, res: Response) {
         amount:               o.amount,
         feeLauncx:            o.feeLauncx   ?? 0,
         feePg:                o.fee3rdParty ?? 0,
+        totalFee,
         netSettle,
         status:               o.status === 'SETTLED' ? 'SUCCESS' : o.status,
         settlementStatus:     o.settlementStatus ?? '',
@@ -951,7 +953,7 @@ export async function exportDashboardAll(req: Request, res: Response) {
     const txSheet = wb.addWorksheet('Transactions')
     txSheet.addRow([
       'Date','TRX ID','RRN','Player ID','Channel',
-      'Amount','Fee Launcx','Fee PG','Net Amount','Status'
+      'Amount','Fee Launcx','Fee PG','Total Fee','Net Amount','Status'
     ]).commit()
 
     let skipOrders = 0
@@ -978,6 +980,7 @@ export async function exportDashboardAll(req: Request, res: Response) {
 
       for (const o of ordersChunk) {
         const net = o.status === 'PAID' ? o.pendingAmount : o.settlementAmount
+        const totalFee = (o.feeLauncx ?? 0) + (o.fee3rdParty ?? 0)
         txSheet.addRow([
           formatDateJakarta(o.createdAt),
           o.id,
@@ -987,6 +990,7 @@ export async function exportDashboardAll(req: Request, res: Response) {
           o.amount,
           o.feeLauncx,
           o.fee3rdParty,
+          totalFee,
           net,
           o.status
         ]).commit()
